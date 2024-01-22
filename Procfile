@@ -1,0 +1,1 @@
+web: gunicorn schedule_system.wsgi:application --log-file - --log-level debug
