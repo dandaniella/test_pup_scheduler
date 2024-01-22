@@ -1,3 +1,4 @@
-web: gunicorn schedule_system.wsgi:application --log-file - --log-level debug
+
+web: gunicorn schedule_system:app
 python manage.py collectstatic --noinput
 manage.py migrate
