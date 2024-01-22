@@ -1,0 +1,306 @@
+{% load static %}
+
+<link href="{% static 'css/tabler.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/demo.min.css' %}" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+
+
+<body>
+  {% include "navbar.html" %}
+
+  <script src="./dist/js/demo-theme.min.js?1692870487"></script>
+  <div class="page-wrapper">
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <h2 class="page-title">
+              Faculty Loading
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page body -->
+    <div class="page-body">
+      <div class="container-xl">
+        <div class="row row-cards">
+          <div class="col-lg-8">
+            <div class="card">
+              <div class="card-body mt-2">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <h2 class="card-title">
+                      Faculty
+                    </h2>
+                  </div>
+                  <div class="d-flex">
+                    <div class="me-3">
+                      <div class="input-icon">
+                        <select class="form-select" style="width: 200px;" id="facultyDropdown">
+                          <!-- Options will be dynamically added here -->
+                        </select>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary" id="searchButton">
+                      Search
+                    </button>
+                  </div>
+                  <div class="col-12">
+                    <div class="card mt-4">
+                      <div class="card-body">
+                        <!-- Placeholder spans for dynamic data -->
+                        <div class="h2 mt-">
+                          <span id="facultyName">Lenandro Avena</span>
+                        </div>
+                        <div class="mb-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-secondary" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                            <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2" />
+                            <path d="M12 12l0 .01" />
+                            <path d="M3 13a20 20 0 0 0 18 0" />
+                          </svg>
+                          <strong>Faculty Type:</strong>
+                          <span id="facultyType">Full-Time</span>
+                        </div>
+                        <div class="mb-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-secondary" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                            <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2" />
+                            <path d="M12 12l0 .01" />
+                            <path d="M3 13a20 20 0 0 0 18 0" />
+                          </svg>
+                          <strong>Rank:</strong>
+                          <span id="rank">Associate Professor II</span>
+                        </div>
+                        <div class="mb-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-secondary" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                            <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2" />
+                            <path d="M12 12l0 .01" />
+                            <path d="M3 13a20 20 0 0 0 18 0" />
+                          </svg>
+                          <strong>Remarks:</strong>
+                          <span id="remarks">None</span>
+                        </div>
+                        <div class="mb-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-secondary" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+                            <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2" />
+                            <path d="M12 12l0 .01" />
+                            <path d="M3 13a20 20 0 0 0 18 0" />
+                          </svg>
+                          <strong>Units Allowed:</strong>
+                          <span id="unitsAllowed">12</span>
+                        </div>
+
+                        <div class="card-body">
+                          <h3 class="card-title">Course Load</h3>
+                          <div class="col-12">
+                            <div class="card">
+                              <div class="table-responsive">
+                                <table class="table card-table table-vcenter text-nowrap datatable">
+                                  <thead>
+                                    <tr>
+                                      <th>Course Code</th>
+                                      <th>Course Name</th>
+                                      <th>Units</th>
+                                      <th>Lecture</th>
+                                      <th>Lab</th>
+                                      <th>Is Lab?</th>
+                                      <th class="w-1">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="courseLoadBody">
+                                    <!-- Course load data will be dynamically added here -->
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+                <div class="card-body mt-2">
+                    <div class="card-title">Course Load</div>
+                    <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
+                        <!-- Adjusted size for dropdowns, buttons, and search input -->
+                        <select class="form-select form-select-sm" id="acadyearDropdown">
+                            <!-- Options will be dynamically added here -->
+                        </select>
+                        <select class="form-select form-select-sm" id="semesterDropdown">
+                            <!-- Options will be dynamically added here -->
+                        </select>
+                        <input type="text" class="form-control form-control-sm" id="subjectCodeInput" placeholder="Subject Code">
+                        <button class="btn btn-primary btn-sm" id="scheduleSearchButton">
+                            Search
+                        </button>
+                    </div>
+                    <div class="row row-cards mt-2" id="cardContainer">
+                        <!-- Cards will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+  <!-- Libs JS -->
+  <script src="./dist/libs/apexcharts/dist/apexcharts.min.js?1692870487" defer></script>
+  <script src="./dist/libs/jsvectormap/dist/js/jsvectormap.min.js?1692870487" defer></script>
+  <script src="./dist/libs/jsvectormap/dist/maps/world.js?1692870487" defer></script>
+  <script src="./dist/libs/jsvectormap/dist/maps/world-merc.js?1692870487" defer></script>
+  <!-- Tabler Core -->
+  <script src="./dist/js/tabler.min.js?1692870487" defer></script>
+  <script src="./dist/js/demo.min.js?1692870487" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+  <script src="{% static 'js/common.js' %}" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (!localStorage.getItem('accessToken')) {
+            // Redirect to login if token is not present
+            window.location.href = "/index";
+        }
+    });
+
+    function getToken() {
+        return localStorage.getItem('accessToken');
+    }
+
+    $(document).ready(function () {
+        const token = getToken();
+
+        // Function to fetch faculties and populate Select2 dropdown
+        function fetchFaculties() {
+            $.ajax({
+                url: "https://pupqcfis-com.onrender.com/api/all/FISFaculty",
+                type: "GET",
+                success: function (response) {
+                    // Populate the dropdown with faculty names and last names
+                    const facultyDropdown = $("#facultyDropdown");
+                    facultyDropdown.empty(); // Clear existing options
+
+                    if (response && response.Faculties && Object.keys(response.Faculties).length > 0) {
+                        // Iterate over faculties and add them to the dropdown
+                        Object.values(response.Faculties).forEach(function (faculty) {
+                            const fullName = `${faculty.FirstName} ${faculty.LastName}`;
+                            facultyDropdown.append(`<option value="${faculty.FacultyId}">${fullName}</option>`);
+                        });
+
+                        // Initialize Select2 on the dropdown
+                        facultyDropdown.select2({
+                            width: '100%', // Adjust the width as needed
+                            placeholder: 'Search for a faculty',
+                            allowClear: true // Allow clearing the selection
+                        });
+                    } else {
+                        console.log('No data to display.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching faculties:", xhr.responseText);
+                }
+            });
+        }
+
+        // Fetch faculties on page load
+        fetchFaculties();
+
+        // Function to populate academic year dropdown
+        function populateAcademicYearDropdown() {
+            $.ajax({
+                url: baseUrl+"/academicyears/getacadyr",
+                type: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                success: function (response) {
+                    if (response.data && response.data.length > 0) {
+                        response.data.forEach(function (academicYear) {
+                            $('#acadyearDropdown').append(`<option value="${academicYear.id}" data-id="${academicYear.id}">${academicYear.name}</option>`);
+                        });
+                    } else {
+                        console.log('No academic years found.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error fetching academic years:', xhr.responseText);
+                }
+            });
+        }
+
+        // Function to populate semester dropdown
+        function populateSemesterDropdown() {
+            $.ajax({
+                url: baseUrl+"/semesters/getsemester",
+                type: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                success: function (response) {
+                    if (response.data && response.data.length > 0) {
+                        response.data.forEach(function (semester) {
+                            $('#semesterDropdown').append(`<option value="${semester.id}" data-id="${semester.id}">${semester.name}</option>`);
+                        });
+                    } else {
+                        console.log('No semesters found.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error fetching semesters:', xhr.responseText);
+                }
+            });
+        }
+
+        // Fetch academic years and populate the dropdown
+        populateAcademicYearDropdown();
+
+        // Fetch semesters and populate the dropdown
+        populateSemesterDropdown();
+
+        function searchFaculty() {
+            const facultyId = $("#facultyDropdown").val();
+
+            $.ajax({
+                url: `https://pupqcfis-com.onrender.com/api/FISFaculty/${facultyId}`,
+                type: "GET",
+                success: function (response) {
+                    // Update the UI with faculty details
+                    $("#facultyName").text(`${response.Faculties.FirstName} ${response.Faculties.LastName}`);
+                    $("#facultyType").text(response.Faculties.FacultyType);
+                    $("#rank").text(response.Faculties.Rank);
+                    $("#remarks").text(response.Faculties.Remarks);
+                    $("#unitsAllowed").text(response.Faculties.Units);
+                    // Add more lines to update other details as needed
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching faculty details:", xhr.responseText);
+                }
+            });
+        }
+
+        // Assign the searchFaculty function to the button click event
+        $("#searchButton").on("click", function () {
+            searchFaculty();
+        });
+    });
+</script>
+
+
+
+  </body>
+  </html>

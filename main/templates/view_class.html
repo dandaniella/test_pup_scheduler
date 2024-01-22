@@ -1,0 +1,475 @@
+
+{% load static %}
+
+<link href="{% static 'css/tabler.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/demo.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+
+
+<body>
+{% include "navbar.html" %}
+
+<div class="page-wrapper">
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <div class="mb-1">
+              <ol class="breadcrumb" aria-label="breadcrumbs">
+              <li class="breadcrumb-item"><a href="{% url 'view_schedule' %}">View Schedule</a></li>
+              <li class="breadcrumb-item"><a href="{% url 'view_class' %}">Class Schedule</a></li>
+              </ol>
+            </div>
+            <h2 class="page-title" style="margin-bottom: 20px;">
+              Class Schedule
+            </h2>
+          </div>
+          <!-- Page title actions -->
+
+  </div>
+</div>
+<div class="page-body">
+<div class="container-xl">
+<div class="col-12">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Search Class Schedule</h3>
+    </div>
+    <div class="card-body">
+      <div class="row align-items-center">
+
+        <div class="col-12 col-md-3">
+          <div class="mb-3">
+            <label class="form-label">Academic Year</label>
+            <select type="text" class="form-select" id="academicyearDropdown" value="">
+              <option value="" selected disabled>Select Academic Year</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <div class="mb-3">
+            <label class="form-label">Semester</label>
+            <select type="text" class="form-select" id="semesterDropdown" value="">
+              <option value="" selected disabled>Select Semester</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <div class="mb-3">
+            <label class="form-label">Program</label>
+            <select type="text" class="form-select" id="programDropdown" value="">
+              <option value="" selected disabled>Select Program</option>
+            </select>
+          </div>
+        </div>
+    
+
+        <div class="col-12 col-md-3">
+          <div class="mb-3">
+              <label class="form-label">Class</label>
+              <select type="text" class="form-select" id="classDropdown" value="">
+                <option value="" selected disabled>Select Class</option>
+              </select>
+          </div>
+      </div>
+
+        
+      <div class="col-12 mt-3 text-end mb-2">
+        <a id="searchButton" class="btn btn-primary" target="_blank" rel="noopener">Search</a>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+    <div class="container-xl mt-4">
+      <div class="row g-2 align-items-center">
+        <div class="col-auto ms-auto d-print-none">
+          <button class="btn btn-primary" type="button" id="generate-pdf"><!-- Add this button -->
+            <!-- Download SVG icon from http://tabler-icons.io/i/printer -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" /><path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" /><path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" /></svg>
+            Print Schedule
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page body -->
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="card card-lg">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6">
+              <class_details>
+                <strong> Program: </strong><span id="programDetails"></span><br>
+              <class_details>
+            </div>
+            <div class="col-6 text-end">
+              <class_details>
+                <strong> Academic Year: </strong><span id="academicYearDetails"></span><br>
+                <strong> Semester: </strong><span id="semesterDetails"></span><br>
+              <class_details>
+            </div>
+            <div class="col-12">
+              <hr class="my-1 mt-4"> 
+              <h1 class="mb-0 text-center"><span id="classTitle"></span></h1>
+              <hr class="my-1">
+          </div>
+          </div>
+          <table class="table table-transparent table-responsive mt-5">
+            <thead>
+              <tr>
+                <th class="text-center"></th>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th class="text-center" style="width: 1%">Lec</th>
+                <th class="text-center" style="width: 1%">Lab</th>
+                <th class="text-center" style="width: 1%">Unit</th>
+                <th class="text-center">Schedule</th>
+                <th class="text-center" >Room</th>
+              </tr>
+            </thead>
+            <tbody id="classScheduleTableBody">
+              <tr>
+              </tr>
+            </tbody>
+          </table>
+          <p class="text-secondary text-center mt-5">You can download the file at the upper right corner of the page!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer footer-transparent d-print-none">
+    <div class="container-xl">
+      <div class="row text-center align-items-center flex-row-reverse">
+        <div class="col-lg-auto ms-lg-auto">
+          <ul class="list-inline list-inline-dots mb-0">
+            <li class="list-inline-item"><a href="https://tabler.io/docs" target="_blank" class="link-secondary" rel="noopener">Documentation</a></li>
+            <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a></li>
+            <li class="list-inline-item"><a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a></li>
+            <li class="list-inline-item">
+              <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary" rel="noopener">
+                <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink icon-filled icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
+                Sponsor
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+          <ul class="list-inline list-inline-dots mb-0">
+            <li class="list-inline-item">
+              Copyright &copy; 2023
+              <a href="." class="link-secondary">Tabler</a>.
+              All rights reserved.
+            </li>
+            <li class="list-inline-item">
+              <a href="./changelog.html" class="link-secondary" rel="noopener">
+                v1.0.0-beta20
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+</div>
+<!-- Libs JS -->
+<!-- Tabler Core -->
+<script src="./dist/js/tabler.min.js?1692870487" defer></script>
+<script src="./dist/js/demo.min.js?1692870487" defer></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.10/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+  // Function to retrieve token from localStorage
+  function getToken() {
+      return localStorage.getItem('accessToken');
+  }
+
+  // Function to check if the token is available
+  function isTokenAvailable() {
+      const token = getToken();
+      return token !== null && token !== undefined && token !== '';
+  }
+
+  // Function to redirect to login if token is not available
+  function redirectToLogin() {
+      console.log('Token not found. Redirecting to login.');
+      window.location.href = "/index";
+  }
+
+  // Check if token is available and redirect if not
+  if (!isTokenAvailable()) {
+      redirectToLogin();
+  }
+  $(document).ready(function () {
+      // Populate Academic Year Dropdown
+      $.ajax({
+          url: "http://127.0.0.1:8000/academicyears/getacadyr",
+          type: 'GET',
+          headers: {
+              'Authorization': `Bearer ${getToken()}`
+          },
+          success: function (response) {
+              if (response.data && response.data.length > 0) {
+                  response.data.forEach(function (academicYear) {
+                      $('#academicyearDropdown').append(`<option value="${academicYear.id}" data-id="${academicYear.id}">${academicYear.name}</option>`);
+                  });
+              } else {
+                  console.log('No academic years found.');
+              }
+          },
+          error: function (xhr, status, error) {
+              console.log('Error fetching academic years:', xhr.responseText);
+          }
+      });
+      $('#generate-pdf').on('click', function () {
+        // Create a new jsPDF instance
+        const pdf = new jsPDF();
+      
+        // Add the details content to the PDF
+        const academicYear = $('#academicYearDetails').text();
+        const semester = $('#semesterDetails').text();
+        const program = $('#programDetails').text();
+        const className = $('#classTitle').text();
+      
+        pdf.text(`Program: ${program}`, 20, 30);
+        pdf.text(`Academic Year: ${academicYear}`, 20, 40);
+        pdf.text(`Semester: ${semester}`, 20, 50);
+        pdf.text(`Class: ${className}`, 20, 60);
+      
+        // Add a line break
+        pdf.text('', 20, 70);
+      
+        // Construct the table content
+        const columns = ['', 'Course Code', 'Course Name', 'Lec', 'Lab', 'Units', 'Schedule', 'Room'];
+        const data = [];
+      
+        $('#classScheduleTableBody tr').each(function () {
+          const row = [];
+          $(this).find('td').each(function () {
+            // Replace &nbsp; with an empty string
+            row.push($(this).text().replace(/\u00a0/g, ''));
+          });
+          data.push(row);
+        });
+      
+        // Calculate the starting positions for Course Code and Course Name columns
+        const columnWidths = [0, 40, 90, 20, 20, 20, 50, 20]; // Adjust the widths of each column
+        const startXPositions = columnWidths.reduce((acc, width) => {
+          acc.push(acc.length > 0 ? acc[acc.length - 1] + width : width);
+          return acc;
+        }, []);
+      
+        // Add the table to the PDF with adjusted starting positions for specific columns
+        pdf.autoTable({
+          head: [columns],
+          body: data,
+          startY: 80,
+          headStyles: { fillColor: [139, 0, 0] }, // Dark Red color for the header row
+          didParseCell: function (data) {
+            // Adjust the x-coordinate for specific columns to align content properly
+            if (data.section === 'body') {
+              switch (data.column.index) {
+                // Adjust the x-coordinate for the invisible column
+                case 0: // &nbsp; (invisible column)
+                  data.cell.width = 0; // Set the width to zero
+                  break;
+                case 1: // Course Code
+                  data.cell.x += 5; // Adjust the x-coordinate for Course Code
+                  break;
+                case 2: // Course Name
+                  data.cell.x += 5; // Adjust the x-coordinate for Course Name
+                  break;
+                // Add more cases if needed for other columns
+              }
+            }
+          },
+        });
+      
+        // Save the PDF
+        pdf.save('class_schedule.pdf');
+      });
+      // Populate Semester Dropdown
+      $.ajax({
+          url: "http://127.0.0.1:8000/semesters/getsemester",
+          type: 'GET',
+          headers: {
+              'Authorization': `Bearer ${getToken()}`
+          },
+          success: function (response) {
+              if (response.data && response.data.length > 0) {
+                  response.data.forEach(function (semester) {
+                      $('#semesterDropdown').append(`<option value="${semester.id}" data-id="${semester.id}">${semester.name}</option>`);
+                  });
+              } else {
+                  console.log('No semesters found.');
+              }
+          },
+          error: function (xhr, status, error) {
+              console.log('Error fetching semesters:', xhr.responseText);
+          }
+      });
+
+      // Populate Program Dropdown
+      $.ajax({
+          url: "http://127.0.0.1:8000/courses/getcourse",
+          type: 'GET',
+          headers: {
+              'Authorization': `Bearer ${getToken()}`
+          },
+          success: function (response) {
+              if (response.data && response.data.length > 0) {
+                  response.data.forEach(function (course) {
+                      $('#programDropdown').append(`<option value="${course.id}" data-id="${course.id}">${course.name}</option>`);
+                  });
+              } else {
+                  console.log('No courses found.');
+              }
+          },
+          error: function (xhr, status, error) {
+              console.log('Error fetching courses:', xhr.responseText);
+          }
+      });
+
+      // Populate Class Dropdown
+$.ajax({
+  url: "http://127.0.0.1:8000/classes/getclass",
+  type: 'GET',
+  headers: {
+      'Authorization': `Bearer ${getToken()}`
+  },
+  success: function (response) {
+      if (response.data && response.data.length > 0) {
+          response.data.forEach(function (classItem) {
+              $('#classDropdown').append(`<option value="${classItem.id}" data-id="${classItem.id}">${classItem.classname}</option>`);
+          });
+
+          // Initialize Select2 for the class dropdown
+          $('#classDropdown').select2({
+              width: '100%',
+              placeholder: 'Select Class',
+              allowClear: true
+          });
+      } else {
+          console.log('No classes found.');
+      }
+  },
+  error: function (xhr, status, error) {
+      console.log('Error fetching classes:', xhr.responseText);
+  }
+});
+
+      // Event listener for the 'Search' button
+      $('#searchButton').on('click', function () {
+          // Get selected values and names from dropdowns
+          const academicYearId = $('#academicyearDropdown option:selected').data('id');
+          const semesterId = $('#semesterDropdown option:selected').data('id');
+          const programId = $('#programDropdown option:selected').data('id');
+          const classId = $('#classDropdown option:selected').data('id');
+
+          // Make a request to get filtered schedule data
+          $.ajax({
+              url: "http://127.0.0.1:8000/manageschedules/filtersched",
+              type: 'GET',
+              data: {
+                  acadyear_id: academicYearId,
+                  semester_id: semesterId,
+                  course_id: programId,
+                  class_id: classId
+              },
+              headers: {
+                  'Authorization': `Bearer ${getToken()}`
+              },
+              success: function (response) {
+                  // Populate the table with the filtered data
+                  populateScheduleTable(response);
+              },
+              error: function (xhr, status, error) {
+                  console.log('Error fetching filtered schedule data:', xhr.responseText);
+              }
+          });
+      });
+
+      // Function to populate the schedule table
+ // Function to populate the schedule table
+function populateScheduleTable(data) {
+  // Assuming 'data' is an array of schedule objects
+  $('#classScheduleTableBody').empty(); // Clear existing rows
+
+  if (data && data.length > 0) {
+      data.forEach(function (schedule) {
+          // Shorten day and format time
+          const shortenedDay = schedule.day.substring(0, 3); // Extract first three characters
+          const formattedTime = `${formatTime(schedule.start_time)} - ${formatTime(schedule.end_time)}`;
+
+          // Make a separate request to get room details based on room_id
+          $.ajax({
+              type: "GET",
+              url: `http://127.0.0.1:8000/rooms/${schedule.room_id}`, // Adjust the endpoint accordingly
+              headers: {
+                'Authorization': `Bearer ${getToken()}`
+            },
+              success: function (roomData) {
+                  if (roomData.data) {
+                      // Use room number if available, otherwise show 'N/A'
+                      const roomNumber = roomData.data.room_number || 'N/A';
+
+                      // Append the row to the table
+                      $('#classScheduleTableBody').append(`
+                          <tr>
+                              <td class="text-center"></td>
+                              <td>${schedule.subject_code}</td>
+                              <td>${schedule.subject_name}</td>
+                              <td class="text-center">${schedule.lecture_hours}</td>
+                              <td class="text-center">${schedule.lab_hours}</td>
+                              <td class="text-center">${schedule.units}</td>
+                              <td class="text-center">${shortenedDay} ${formattedTime}</td>
+                              <td class="text-center">${roomNumber}</td>
+                          </tr>
+                      `);
+                  } else {
+                      console.error("Room data not available:", roomData);
+                  }
+                  const academicYearName = $('#academicyearDropdown option:selected').text();
+                  const semesterName = $('#semesterDropdown option:selected').text();
+                  const programName = $('#programDropdown option:selected').text();
+                  const className = $('#classDropdown option:selected').text();
+      
+                  $('#programDetails').text(programName || 'PROGRAM CODE');
+                  $('#academicYearDetails').text(academicYearName || 'C.Y');
+                  $('#semesterDetails').text(semesterName || 'SEMESTER');
+                  $('#classTitle').text(className || 'CLASS TITLE');
+              },
+              error: function (error) {
+                  console.error("Error fetching room details:", error);
+              }
+          });
+      });
+  } else {
+      console.log('No schedule data found.');
+  }
+}
+    
+    // Function to format time (e.g., convert 07:00:00 to 7:00 AM)
+    function formatTime(time) {
+      const formattedTime = new Date(`1970-01-01T${time}`);
+      return formattedTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  }
+  });
+</script>
+</body>
+</html>

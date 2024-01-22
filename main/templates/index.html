@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/jwt-js-decode@1.8.2/dist/jwt-js-decode.pkg.min.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>PUP Scheduler</title>
+
+    <!-- CSS files -->
+    {% load static %}
+    <link href="{% static 'css/tabler.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/demo.min.css' %}" rel="stylesheet" />
+
+    <style>
+        @import url('https://rsms.me/inter/inter.css');
+
+        :root {
+            --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+        }
+
+        body {
+            font-feature-settings: "cv03", "cv04", "cv11";
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column">
+    <div class="page page-center">
+        <div class="container container-tight py-4">
+            <!-- Error message section -->
+            <div id="errorMessage" class="alert alert-danger d-none mb-3" role="alert">
+                Invalid Credentials, please check and input your email and password correctly
+            </div>
+            <div class="text-center mb-4">
+                <a href="{% url 'index' %}" class="navbar-brand navbar-brand-autodark">
+                    <img src="{% static 'img/PUPLogo.png' %}" width="150" height="72" alt="PUP Scheduler" class="navbar-brand-image">
+                </a>
+                <h5 class="h2 text-center mb-4">Scheduler</h5>
+            </div>
+            <div class="card card-md">
+                <div class="card-body">
+                    <h5 class="h2 text-center mb-4">Login</h5>
+                    <form method="post" autocomplete="off" novalidate>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email address</label>
+                            <input type="email" id="id_email" name="email" class="form-control" required>
+                            <div id="emailError" class="text-danger"></div> <!-- Error message placeholder for email -->
+                        </div>
+                        <div class="mb-2">
+                            <label for="id_password" class="form-label">Password</label>
+                            <div class="input-group input-group-flat mb-3">
+                                <input type="password" id="id_password" name="password" class="form-control" required>
+                                <span class="input-group-text toggle-password">
+                                    <!-- ... -->
+                                </span>
+                            </div>
+                            <div id="passwordError" class="text-danger"></div> <!-- Error message placeholder for password -->
+                        </div>
+                        <div class="form-footer mb-3">
+                            <button type="submit" class="btn btn-primary w-100" id="signInButton">Sign in</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Libs JS -->
+    <!-- Tabler Core -->
+    <script src="{% static 'js/tabler.min.js' %}" defer></script>
+    <script src="{% static 'js/demo.min.js' %}" defer></script>
+    <script src="{% static 'js/common.js' %}" defer></script>
+    <!-- Custom Script -->
+    <script>
+        $(document).ready(function () {
+            $(".toggle-password").click(function () {
+                // ... (password toggle code) ...
+            });
+
+            $("form").submit(function (event) {
+                event.preventDefault();
+                $("#errorMessage").addClass('d-none');
+
+                let email = $("#id_email").val();
+                let password = $("#id_password").val();
+
+                if (!isValidEmail(email)) {
+                    alert("Please enter a valid email address.");
+                    return;
+                }
+
+                if (!isValidPassword(password)) {
+                    alert("Password should be at least 8 characters long.");
+                    return;
+                }
+
+                let formData = new FormData();
+                formData.append("username", email);
+                formData.append("password", password);
+
+                $.ajax({
+                    url: baseUrl+"/login/sign-in",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        // Store the access token in localStorage
+                        localStorage.setItem('accessToken', response.access_token);
+
+                        // Decode JWT token to get usertype
+                        let decodedToken = jwtJsDecode.decode(response.access_token);
+                        let usertype = decodedToken.payload.usertype;
+
+                        // Redirect based on usertype
+                        switch (usertype) {
+                            case 'superadmin':
+                                window.location.href = "/home";
+                                break;
+                            case 'admin':
+                                window.location.href = "/adminhome";
+                                break;
+                            case 'staff':
+                                window.location.href = "/staffhome";
+                                break;
+                            default:
+                                // Default redirection for unknown usertypes
+                                window.location.href = "/index";
+                                break;
+                        }
+                    },
+                    error: function (error) {
+                        console.error("Error during login:", error.responseJSON.detail);
+                        $("#errorMessage").removeClass('d-none');
+                    }
+                });
+            });
+
+            // Log the stored token when the page loads
+            console.log("Stored Token:", localStorage.getItem('accessToken'));
+
+            if (localStorage.getItem('accessToken')) {
+                // If accessToken is present, the user is already logged in, redirect to home
+                window.location.href = "/home";
+            }
+        });
+
+        function isValidEmail(email) {
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            return emailRegex.test(email);
+        }
+
+        function isValidPassword(password) {
+            return password.length >= 8;
+        }
+    </script>
+</body>
+
+</html>

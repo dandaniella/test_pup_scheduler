@@ -1,0 +1,173 @@
+{% load static %}
+
+<link href="{% static 'css/tabler.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/demo.min.css' %}" rel="stylesheet"/>
+
+<body>
+{% include "navbar.html" %}
+
+<div class="page-wrapper">
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <!-- Page pre-title -->
+            <div class="page-pretitle">
+              Overview
+            </div>
+            <h2 class="page-title" style="margin-bottom: 20px;">
+              System Configuration
+            </h2>
+          </div>
+          <!-- Page title actions -->
+  </div>
+  <div class="row mb-4">
+    <div class="col-lg-6">
+      <a href="{% url 'manage_academicyear' %}" class="card text-decoration-none">
+        <div class="card-body">
+          <div class="row row-0">
+            <div class="col-3">
+              <img src="{% static 'img/icon2.svg' %}" class="w-100 h-100 object-cover card-img-start" alt="" />
+            </div>
+            <div class="col">
+              <div class="card-body">
+                <h3 class="card-title">Manage Academic Year</h3>
+                <p class="text-secondary">It encompasses the ability to add, update, and delete academic years, ensuring an accurate flow of information across various pages.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  <div class="col-lg-6">
+    <a href="{% url 'manage_semester' %}" class="card text-decoration-none"> <!-- Replace 'your_target_page_url' with the actual URL -->
+      <div class="card-body">
+        <div class="row row-0">
+          <div class="col-3">
+            <img src="{% static 'img/icon3.svg' %}" class="w-100 h-100 object-cover card-img-start" alt="" />
+          </div>
+          <div class="col">
+            <div class="card-body">
+              <h3 class="card-title">Manage Semesters</h3>
+              <p class="text-secondary">Effortlessly organize and control academic semesters, streamlining the process of defining and managing term durations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col-lg-6">
+    <a href="{% url 'manage_course' %}" class="card text-decoration-none">
+      <div class="card-body">
+        <div class="row row-0">
+          <div class="col-3">
+            <img src="{% static 'img/icon4.svg' %}" class="w-100 h-100 object-cover card-img-start" alt="" />
+          </div>
+          <div class="col">
+            <div class="card-body">
+              <h3 class="card-title">Manage Course</h3>
+              <p class="text-secondary">Take command of your courses with this feature, allowing you to efficiently add, update, and delete courses as needed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-lg-6">
+    <a href="{% url 'manage_yearlevel' %}" class="card text-decoration-none"> <!-- Replace 'your_target_page_url' with the actual URL -->
+      <div class="card-body">
+        <div class="row row-0">
+          <div class="col-3">
+            <img src="{% static 'img/icon5.svg' %}" class="w-100 h-100 object-cover card-img-start" alt="" />
+          </div>
+          <div class="col">
+            <div class="card-body">
+              <h3 class="card-title">Manage Year Level</h3>
+              <p class="text-secondary">Empower your academic structure by overseeing and manipulating year levels, ensuring flexibility in managing educational hierarchies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col-lg-6">
+    <a href="{% url 'manage_section' %}" class="card text-decoration-none">
+      <div class="card-body">
+        <div class="row row-0">
+          <div class="col-3">
+            <img src="{% static 'img/icon6.svg' %}" class="w-100 h-100 object-cover card-img-start" alt="" />
+          </div>
+          <div class="col">
+            <div class="card-body">
+              <h3 class="card-title">Manage Section</h3>
+              <p class="text-secondary">Efficiently handle and organize academic sections, offering the capability to add, update, and delete sections for a streamlined educational experience.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-lg-6">
+    <a href="{% url 'manage_class' %}" class="card text-decoration-none"> <!-- Replace 'your_target_page_url' with the actual URL -->
+      <div class="card-body">
+        <div class="row row-0">
+          <div class="col-3">
+            <img src="{% static 'img/icon7.svg' %}" class="w-100 h-100 object-cover card-img-start" alt="" />
+          </div>
+          <div class="col">
+            <div class="card-body">
+              <h3 class="card-title">Manage Class</h3>
+              <p class="text-secondary">Exercise control over class management, allowing for seamless additions, updates, and deletions to ensure an organized and effective educational environment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+<div class="row mb-4">
+  <div class="col-lg-6">
+    <a href="{% url 'manage_curriculumyear' %}" class="card text-decoration-none">
+      <div class="card-body">
+        <div class="row row-0">
+          <div class="col-3">
+            <img src="{% static 'img/icon8.svg' %}" class="w-100 h-100 object-cover card-img-start" alt="" />
+          </div>
+          <div class="col">
+            <div class="card-body">
+              <h3 class="card-title">Manage Curriculum Year</h3>
+              <p class="text-secondary">Add, update, and delete curriculum year that will be utilized on allocating curriculum details.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-lg-6">
+    <a href="{% url 'manage_facility' %}" class="card text-decoration-none"> <!-- Replace 'your_target_page_url' with the actual URL -->
+      <div class="card-body">
+        <div class="row row-0">
+          <div class="col-3">
+            <img src="{% static 'img/icon9.svg' %}" class="w-100 h-100 object-cover card-img-start" alt="" />
+          </div>
+          <div class="col">
+            <div class="card-body">
+              <h3 class="card-title">Room Allocation</h3>
+              <p class="text-secondary">Exercise control over class management, allowing for seamless additions, updates, and deletions to ensure an organized and effective educational environment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+</body>
+</html>

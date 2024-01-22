@@ -1,0 +1,368 @@
+{% load static %}
+
+<link href="{% static 'css/tabler.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/demo.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+
+<body>
+{% include "staffnavbar.html" %}
+
+<div class="page-wrapper">
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <!-- Page pre-title -->
+                    <div class="page-pretitle">
+                        Overview
+                    </div>
+                    <h2 class="page-title" style="margin-bottom: 20px;">
+                        Curriculum
+                    </h2>
+                </div>
+                <!-- Page title actions -->
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Add new Curriculum</h3>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="table-responsive">
+                                <table class="table card-table table-vcenter text-nowrap datatable">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Action</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Curriculum year</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Program</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Year Level</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Semester</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Subject Code</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Description</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Pre-req</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Co-req</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Lecture Hours</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Lab Hours</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Credited Units</th>
+                                            <th style="font-weight: bold; font-size: 12px; color: black;">Tuition Hours</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div style="background-color: #0154A6; display: inline-block; padding: 10px; border-radius: 8px; color: white">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus-filled" width="28" height="28" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm0 6a1 1 0 0 0 -1 1v2h-2l-.117 .007a1 1 0 0 0 .117 1.993h2v2l.007 .117a1 1 0 0 0 1.993 -.117v-2h2l.117 -.007a1 1 0 0 0 -.117 -1.993h-2v-2l-.007 -.117a1 1 0 0 0 -.993 -.883z" fill="currentColor" stroke-width="0" />
+                                                    </svg>
+                                                </div>
+                                                <button class="delete-row-btn" style="background-color: #D32F2F; display: inline-block; padding: 7px 12px; color: white; margin-left: 10px; border: none; border-radius: 8px;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="22" height="22" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <line x1="18" y1="6" x2="6" y2="18" />
+                                                        <line x1="6" y1="6" x2="18" y2="18" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                            <td><select type="text" class="form-select" id="curriculumYearNameDropdown" style="width: 150px;">
+                                                <option value="" selected disabled>Select Curriculum Year</option>
+                                            </td>
+                                            <td>
+                                                <select type="text" class="form-select" id="programDropdown" style="width: 150px;">
+                                                    <option value="" selected disabled>Select Program</option>
+                                                    <!-- Options will be populated by JavaScript -->
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select type="text" class="form-select" id="yearlevelDropdown" value="" style="width: 150px;">
+                                                    <option value="" selected disabled>Select Year Level</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select type="text" class="form-select" id="semesterDropdown" value="" style="width: 180px;">
+                                                    <option value="" selected disabled>Select Semester</option>
+                                                    <!-- Options will be populated by JavaScript -->
+                                                </select>
+                                            </td>
+                                            <td><input type="text" id="courseCode" class="form-control" placeholder="Course Code" style="width: 250px;"></td>
+                                            <td><input type="text" id="courseName" class="form-control" placeholder="Subject Code" style="width: 300px;"></td>
+                                            <td><input type="text" id="preReq" class="form-control" placeholder="Pre-Requisite" style="width: 250px;"></td>
+                                            <td><input type="text" id="coReq" class="form-control" placeholder="Co-requisite" style="width: 250px;"></td>
+                                            <td><input type="text" id="lectureHours" class="form-control" placeholder="Lecture Hours" style="width: 50px;"></td>
+                                            <td><input type="text" id="lab" class="form-control" placeholder="Lab" style="width: 50px;"></td>
+                                            <td><input type="text" id="units" class="form-control" placeholder="Units" style="width: 50px;"></td>
+                                            <td><input type="text" id="tuitionHours" class="form-control" placeholder="Tuition Hours" style="width: 50px;"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="col-12 mt-1 text-end">
+                            <a href="#" class="btn btn-primary" id="submitBtn">Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+        <div class="container-xl">
+            <div class="row text-center align-items-center flex-row-reverse">
+                <!-- Your existing footer content... -->
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/common.js' %}" defer></script>
+<script>
+    // Retrieve token from localStorage
+    function getToken() {
+        return localStorage.getItem('accessToken');
+    }
+
+    // Ensure token is available
+    const token = getToken();
+
+    if (!token) {
+        console.log('Token not found. Redirecting to login.');
+        window.location.href = "/index";
+    }
+
+    // Function to get table data
+    function getTableData() {
+        const rows = [];
+        $('tbody tr').each(function () {
+            const row = {
+                curriculum_year_name: $(this).find('#curriculumYearNameDropdown').val(),
+                course_id: $(this).find('#programDropdown').val(),
+                year_level_id: $(this).find('#yearlevelDropdown').val(),
+                semester_id: $(this).find('#semesterDropdown').val(),
+                subject_code: $(this).find('#CourseCode').val(),
+                subject_name: $(this).find('#CourseName').val(),
+                pre_req: $(this).find('#preReq').val(),
+                co_req: $(this).find('#coReq').val(),
+                lecture_hours: $(this).find('#lectureHours').val(),
+                lab_hours: $(this).find('#Lab').val(),
+                units: $(this).find('#units').val(),
+                tuition_hours: $(this).find('#tuitionHours').val(), // Use the text field for tuition hours
+            };
+            rows.push(row);
+        });
+        return rows;
+    }
+
+    // Function to send bulk insert data
+    function sendBulkInsertData(data) {
+        $.ajax({
+            url: baseUrl+"/curriculums/post",
+            type: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            contentType: 'application/json',
+            data: JSON.stringify({ curricula: data }),
+            success: function (response) {
+                console.log('Bulk Insert Success:', response);
+                // Show success message
+                alert('Curriculum added successfully');
+                // Optionally clear the table or any other actions
+                location.reload(); // Reload the page to clear the table
+            },
+            error: function (xhr, status, error) {
+                console.log('Bulk Insert Error:', xhr.responseText);
+                // Show error message
+                alert('An Error Occurred, please try again');
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log('Bulk Insert AJAX Failed:', textStatus, errorThrown);
+        });
+    }
+
+    // Fetch courses and populate dropdown
+    function fetchCoursesAndPopulateDropdown() {
+        $.ajax({
+            url: baseUrl+"/courses/getcourse",
+            type: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            success: function (response) {
+                console.log('Success:', response);
+                $('#programDropdown').empty(); // Clear previous options
+
+                // Add the "Please select first" option
+            $('#programDropdown').append('<option value="" selected disabled>Select Program</option>');
+
+
+                if (response.data && response.data.length > 0) {
+                    response.data.forEach(function (course) {
+                        $('#programDropdown').append(`<option value="${course.id}">${course.code}</option>`);
+                    });
+                } else {
+                    console.log('No courses found.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Error:', xhr.responseText);
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log('AJAX Failed:', textStatus, errorThrown);
+        });
+    }
+
+    // Fetch semesters and populate dropdown
+    function fetchSemestersAndPopulateDropdown() {
+        $.ajax({
+            url: baseUrl+"/semesters/getsemester",
+            type: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            success: function (response) {
+                console.log('Semesters Success:', response);
+                $('#semesterDropdown').empty(); // Clear previous options
+
+                $('#semesterDropdown').append('<option value="" selected disabled>Select Semester</option>');
+
+                if (response.data && response.data.length > 0) {
+                    response.data.forEach(function (semester) {
+                        $('#semesterDropdown').append(`<option value="${semester.id}">${semester.name}</option>`);
+                    });
+                } else {
+                    console.log('No semesters found.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Semesters Error:', xhr.responseText);
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log('Semesters AJAX Failed:', textStatus, errorThrown);
+        });
+    }
+
+    // Fetch curriculum names and populate dropdown
+    function fetchCurriculumNamesAndPopulateDropdown() {
+        $.ajax({
+            url: baseUrl+"/managecurriculums/getcurnames",
+            type: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            success: function (response) {
+                console.log('Curriculum Success:', response);
+                $('#curriculumYearNameDropdown').empty(); // Clear previous options
+
+                $('#curriculumYearNameDropdown').append('<option value="" selected disabled>Select CY</option>');
+
+                if (response.data && response.data.length > 0) {
+                    response.data.forEach(function (curriname) {
+                        $('#curriculumYearNameDropdown').append(`<option value="${curriname.id}">${curriname.name}</option>`);
+                    });
+                } else {
+                    console.log('No Curriculum years found.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Curriculum year Error:', xhr.responseText);
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log('Semesters AJAX Failed:', textStatus, errorThrown);
+        });
+    }
+
+    // Fetch year levels and populate dropdown
+    function fetchYearLevelsAndPopulateDropdown() {
+        $.ajax({
+            url: baseUrl+"/yearlevels/getyearlevels",
+            type: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            success: function (response) {
+                console.log('Year Levels Success:', response);
+                $('#yearlevelDropdown').empty(); // Clear previous options
+                $('#yearlevelDropdown').append('<option value="" selected disabled>Select Year Level</option>');
+
+                if (response.data && response.data.length > 0) {
+                    response.data.forEach(function (yearLevel) {
+                        $('#yearlevelDropdown').append(`<option value="${yearLevel.id}">${yearLevel.name}</option>`);
+                    });
+                } else {
+                    console.log('No year levels found.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Year Levels Error:', xhr.responseText);
+            }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log('Year Levels AJAX Failed:', textStatus, errorThrown);
+        });
+    }
+
+    $(document).ready(function () {
+        fetchCurriculumNamesAndPopulateDropdown();
+        fetchCoursesAndPopulateDropdown();
+        fetchSemestersAndPopulateDropdown();
+        fetchYearLevelsAndPopulateDropdown();
+
+        // Event listener for the '+' button
+        $('table').on('click', '.icon-tabler-square-rounded-plus-filled', function () {
+            // Clone the first row
+            const newRow = $('tbody tr:first-child').clone();
+
+            // Disable and populate curriculumYearName from first row
+            const selectedCurriculumyear = $('tbody tr:first-child #curriculumYearNameDropdown').val();
+            newRow.find('#curriculumYearNameDropdown').val(selectedCurriculumyear).prop('disabled', true);
+
+            // Disable and populate programCode from first row
+            const selectedProgramCode = $('tbody tr:first-child #programDropdown').val();
+            newRow.find('#programDropdown').val(selectedProgramCode).prop('disabled', true);
+
+            // Clear and enable semesterName and yearLevel dropdowns for new selection
+            newRow.find('#semesterDropdown, #yearlevelDropdown').val('').prop('disabled', false);
+
+            // Clear and enable remaining text fields
+            newRow.find('input[type="text"]').not('#curriculumYearNameDropdown, #programDropdown').val('').prop('disabled', false);
+
+            // Append the new row to the table
+            $('table tbody').append(newRow);
+
+            // Disable all previously added rows (excluding the very first row)
+            $('tbody tr').not(':last-child').find('input, select').prop('disabled', true);
+        });
+
+        // Event listener for the 'Delete' button in each row
+        $('table').on('click', '.delete-row-btn', function () {
+            // Find the parent row and remove it
+            $(this).closest('tr').remove();
+        });
+
+        // Event listener for the 'Submit' button
+        $('#submitBtn').on('click', function (e) {
+            e.preventDefault();
+            const tableData = getTableData();
+            if (tableData.length > 0) {
+                sendBulkInsertData(tableData);
+            } else {
+                console.log('No data to submit.');
+            }
+        });
+    });
+</script>
+</body>
+</html>

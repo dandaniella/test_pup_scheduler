@@ -1,0 +1,338 @@
+{% load static %}
+
+<link href="{% static 'css/tabler.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/demo.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+
+
+<body>
+{% include "navbar.html" %}
+
+<div class="page-wrapper">
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <!-- Page pre-title -->
+            <div class="page-pretitle">
+              Overview
+            </div>
+            <h2 class="page-title" style="margin-bottom: 20px;">
+              Curriculum
+            </h2>
+          </div>
+          <!-- Page title actions -->
+
+          <div class="col-12 mt-1 text-end ">
+            <a href="{% url 'curriculum_addcurriculum' %}" class="btn btn-primary" target="_blank" rel="noopener">Add Curriculum</a>
+          </div>
+  </div>
+</div>
+<div class="page-body">
+<div class="container-xl">
+<div class="col-12">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Search Curriculum</h3>
+    </div>
+    <div class="card-body">
+      <div class="row align-items-center">
+
+        <div class="col-12 col-md-3">
+          <div class="mb-3">
+            <label class="form-label">Program Name</label>
+            <select type="text" class="form-select" id="programCodeDropdown" value="">
+                <option value="" selected disabled>Please Select a Program</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <div class="mb-3">
+            <label class="form-label">Curriculum Year</label>
+            <select type="text" class="form-select" id="curriculumYearDropdown" value="">
+                <option value="" selected disabled>Select Curriculum Year</option>
+            </select>
+          </div>
+        </div>
+    
+        <div class="col-12 col-md-3">
+          <div class="mb-3">
+            <label class="form-label">Year Level</label>
+            <select type="text" class="form-select" id="yearlevelDropdown" value="">
+                <option value="" selected disabled>Select Year Level</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <div class="mb-3">
+            <label class="form-label">Semester</label>
+            <select type="text" class="form-select" id="semesterDropdown" value="">
+                <option value="" selected disabled>Select Semester</option>
+            </select>
+          </div>
+        </div>
+
+        
+        <div class="col-12 mt-3 text-end mb-2">
+            <button class="btn btn-primary" type="button" id="searchBtn">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-12 mt-4">
+    <div class="card" id="programCodeTitleCard">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="card-title" id="programTitle">PROGRAM CODE</h3>
+            <h3 class="card-title ml-4" id="curriculumYearTitle">C.Y</h3>
+            <h3 class="card-title ml-4" id="yearlevelTitle">YEAR LEVEL</h3>
+            <h3 class="card-title ml-4" id="semesterTitle">SEMESTER</h3>
+            <!-- Add ml-4 (margin-left: 4 spaces) for some space between titles -->
+        </div>
+    </div>
+</div>
+  
+    
+    <div class="table-responsive">
+      <table class="table card-table table-vcenter text-nowrap datatable">
+        <thead>
+          <tr>
+            <th>Course Code</th>
+            <th>Course Name</th>
+            <th>Pre-requisite</th>
+            <th>Co-requisite</th>
+            <th>Lecture Hours</th>
+            <th>Lab Hours</th>
+            <th>Credited Units</th>
+            <th>Tuition Hours</th>
+          </tr>
+        </thead>
+        <tbody id = "curriculumViewTableBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<footer class="footer footer-transparent d-print-none">
+<div class="container-xl">
+<div class="row text-center align-items-center flex-row-reverse">
+  <div class="col-lg-auto ms-lg-auto">
+    <ul class="list-inline list-inline-dots mb-0">
+      <li class="list-inline-item"><a href="https://tabler.io/docs" target="_blank" class="link-secondary" rel="noopener">Documentation</a></li>
+      <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a></li>
+      <li class="list-inline-item"><a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a></li>
+      <li class="list-inline-item">
+        <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary" rel="noopener">
+          <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink icon-filled icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
+          Sponsor
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+    <ul class="list-inline list-inline-dots mb-0">
+      <li class="list-inline-item">
+        Copyright &copy; 2023
+        <a href="." class="link-secondary">Tabler</a>.
+        All rights reserved.
+      </li>
+      <li class="list-inline-item">
+        <a href="./changelog.html" class="link-secondary" rel="noopener">
+          v1.0.0-beta20
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+</footer>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"></script>
+<script src="{% static 'js/common.js' %}" defer></script>
+<script>
+    // Function to retrieve token from localStorage
+    function getToken() {
+        return localStorage.getItem('accessToken');
+    }
+
+    // Function to check if the token is available
+    function isTokenAvailable() {
+        const token = getToken();
+        return token !== null && token !== undefined && token !== '';
+    }
+
+    // Function to redirect to login if token is not available
+    function redirectToLogin() {
+        console.log('Token not found. Redirecting to login.');
+        window.location.href = "/index";
+    }
+
+    // Check if token is available and redirect if not
+    if (!isTokenAvailable()) {
+        redirectToLogin();
+    }
+
+    $(document).ready(function () {
+        // Populate Program Code Dropdown
+        $.ajax({
+            url: baseUrl+"/courses/getcourse",
+            type: 'GET',
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            },
+            success: function (response) {
+                if (response.data && response.data.length > 0) {
+                    response.data.forEach(function (course) {
+                        $('#programCodeDropdown').append(`<option value="${course.id}" data-id="${course.id}">${course.name}</option>`);
+                    });
+                } else {
+                    console.log('No courses found.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Error fetching courses:', xhr.responseText);
+            }
+        });
+        // Populate Curriculum Year Dropdown
+        $.ajax({
+            url: baseUrl+"/managecurriculums/getcurnames",
+            type: 'GET',
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            },
+            success: function (response) {
+                if (response.data && response.data.length > 0) {
+                    response.data.forEach(function (curriculum) {
+                        $('#curriculumYearDropdown').append(`<option value="${curriculum.id}" data-id="${curriculum.id}">${curriculum.name}</option>`);
+                    });
+                } else {
+                    console.log('No curriculum years found.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Error fetching curriculum years:', xhr.responseText);
+            }
+        });
+
+        // Populate Year Level Dropdown
+        $.ajax({
+            url: baseUrl+"/yearlevels/getyearlevels",
+            type: 'GET',
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            },
+            success: function (response) {
+                if (response.data && response.data.length > 0) {
+                    response.data.forEach(function (yearLevel) {
+                        $('#yearlevelDropdown').append(`<option value="${yearLevel.id}" data-id="${yearLevel.id}">${yearLevel.name}</option>`);
+                    });
+                } else {
+                    console.log('No year levels found.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Error fetching year levels:', xhr.responseText);
+            }
+        });
+
+        // Populate Semester Dropdown
+        $.ajax({
+            url: baseUrl+"/semesters/getsemester",
+            type: 'GET',
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            },
+            success: function (response) {
+                if (response.data && response.data.length > 0) {
+                    response.data.forEach(function (semester) {
+                        $('#semesterDropdown').append(`<option value="${semester.id}" data-id="${semester.id}">${semester.name}</option>`);
+                    });
+                } else {
+                    console.log('No semesters found.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Error fetching semesters:', xhr.responseText);
+            }
+        });
+
+// Event listener for the 'Search' button
+$('#searchBtn').on('click', function () {
+    // Get selected values and names from dropdowns
+    const programCode = $('#programCodeDropdown option:selected').text();
+    const programCodeId = $('#programCodeDropdown option:selected').data('id');
+    const curriculumYear = $('#curriculumYearDropdown option:selected').text();
+    const curriculumYearId = $('#curriculumYearDropdown option:selected').data('id');
+    const yearLevel = $('#yearlevelDropdown option:selected').text();
+    const yearLevelId = $('#yearlevelDropdown option:selected').data('id');
+    const semester = $('#semesterDropdown option:selected').text();
+    const semesterId = $('#semesterDropdown option:selected').data('id');
+
+    // Update card titles based on selected values
+    $('#programTitle').text(programCode || 'PROGRAM CODE');
+    $('#curriculumYearTitle').text(curriculumYear || 'C.Y');
+    $('#yearlevelTitle').text(yearLevel || 'YEAR LEVEL');
+    $('#semesterTitle').text(semester || 'SEMESTER');
+            // Make a request to get filtered curriculum data
+            $.ajax({
+                url: baseUrl+"/curriculums/filtercuri",
+                type: 'GET',
+                data: {
+                    curriculum_year_name: curriculumYearId,
+                    course_id: programCodeId,
+                    year_level_id: yearLevelId,
+                    semester_id: semesterId
+                },
+                headers: {
+                    'Authorization': `Bearer ${getToken()}`
+                },
+                success: function (response) {
+                    // Populate the table with the filtered data
+                    populateCurriculumTable(response);
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error fetching filtered curriculum data:', xhr.responseText);
+                }
+            });
+        });
+
+        // Function to populate the curriculum table
+        function populateCurriculumTable(data) {
+            // Assuming 'data' is an array of curriculum objects
+            $('#curriculumViewTableBody').empty(); // Clear existing rows
+
+            if (data && data.length > 0) {
+                data.forEach(function (curriculum) {
+                    $('#curriculumViewTableBody').append(`
+                        <tr>
+                            <td>${curriculum.subject_code}</td>
+                            <td>${curriculum.subject_name}</td>
+                            <td>${curriculum.pre_req}</td>
+                            <td>${curriculum.co_req}</td>
+                            <td>${curriculum.lecture_hours}</td>
+                            <td>${curriculum.lab_hours}</td>
+                            <td>${curriculum.units}</td>
+                            <td>${curriculum.tuition_hours}</td>
+                        </tr>
+                    `);
+                });
+            } else {
+                console.log('No curriculum data found.');
+            }
+        }
+    });
+</script>
+</body>
+</html>

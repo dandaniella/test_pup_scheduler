@@ -1,0 +1,976 @@
+{% load static %}
+
+<link href="{% static 'css/tabler.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/demo.min.css' %}" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+
+
+<body>
+{% include "navbar.html" %}
+
+<body  class=" layout-fluid">
+  <script src="./dist/js/demo-theme.min.js?1692870487"></script>
+<div class="page-wrapper">
+  <!-- Page header -->
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <h2 class="page-title">
+            Manage Schedule
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page body -->
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="row row-cards">
+        <div class="col-lg-9">
+          <div class="card">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-12 col-md-4">
+                  <div class="mb-3">
+                    <label class="form-label">Academic year</label>
+                    <select type="text" class="form-select" id="academicyearDropdown" value="">
+                      <option value="" selected disabled>Select School Year</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                  <div class="mb-3">
+                    <label class="form-label">Curriculum</label>
+                    <select type="text" class="form-select" id="curriculumDropdown" value="">
+                      <option value="" selected disabled>Select CY</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <div class="mb-3">
+                    <label class="form-label">Program</label>
+                    <select type="text" class="form-select" id="programDropdown" value="">
+                      <option value="" selected disabled>Select Program</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-12 col-md-4">
+                  <div class="mb-3">
+                    <label class="form-label">Year Level</label>
+                    <select type="text" class="form-select" id="yearlevelDropdown" value="">
+                      <option value="" selected disabled>Select Year Level</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <div class="mb-3">
+                    <label class="form-label">Semester</label>
+                    <select type="text" class="form-select" id="semesterDropdown" value="">
+                      <option value="" selected disabled>Select Semester</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <div class="mb-3">
+                    <label class="form-label">Class</label>
+                    <select type="text" class="form-select" id="classDropdown" value="">
+                      <option value="" selected disabled>Select Class</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 mt-3 text-end">
+                  <button class="btn btn-primary" id="filter-btn">Filter</button>
+              </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-12 mt-4">
+            <div class="card">
+              <div class="card-header"> <h3 class="card-title">Class Scheduling</h3> </div>
+                <div class="table-responsive">
+                  <div class="card-body">
+                      <table class="table card-table table-vcenter text-nowrap datatable">
+                        <thead>
+                          <tr>
+                            <th>Subject Code</th>
+                            <th>Description</th>
+                            <th>Lec hrs</th>
+                            <th>Lab hrs</th>
+                            <th>Units</th>
+                            <th>Tuition hrs</th>
+                            <th>Day</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Room</th>
+                            <th>Validator</th>
+                          </tr>
+                        </thead>
+                        <tbody id="scheduleTableBody">
+                        </tbody>
+                      </table>
+                 <div class="col-12 mt-3 text-end">
+                        <button class="btn btn-primary" id="submit-btn">Submit</button>
+                </div>
+              </div>
+            </div>
+            </div>
+            
+          </div>
+
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs nav-fill" data-bs-toggle="tabs">
+              <li class="nav-item">
+                <a href="#tabs-home-6" class="nav-link active" data-bs-toggle="tab">Faculty</a>
+              </li>
+              <li class="nav-item">
+                <a href="#tabs-profile-6" class="nav-link" data-bs-toggle="tab">Room</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body mt-2">
+            <div class="tab-content">
+              <!-- Faculty Panel -->
+              <div class="tab-pane active show" id="tabs-home-6">
+                <div class="card-title">Faculty</div>
+                <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
+                  <form action="./" method="get" autocomplete="off" novalidate>
+                    <div class="input-group">
+                      <!-- Dropdown for faculty selection -->
+                      <select id="facultyDropdown" class="form-select">
+                        <option value="" selected disabled>Select Faculty</option>
+                        <!-- Add options dynamically based on your faculty data -->
+                        <!-- Add more options as needed -->
+                      </select>
+                      <!-- Search button -->
+                      <button id="searchFacultyButton" class="btn btn-primary" type="button">Search</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="row row-cards mt-2">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="h2" id="facultyName">Faculty Member</div>
+                        <blockquote class="blockquote">
+                          <div class="mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-secondary" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2" /><path d="M12 12l0 .01" /><path d="M3 13a20 20 0 0 0 18 0" /></svg>
+                            <strong id="statusLabel">Status:</strong> <span id="statusValue">Not Set</span>
+                          </div>
+                          <div class="mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-secondary" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2" /><path d="M12 12l0 .01" /><path d="M3 13a20 20 0 0 0 18 0" /></svg>
+                            <strong id="unitsAllowedLabel">Units Allowed:</strong> <span id="unitsAllowedValue">Not Set</span>
+                          </div>
+                        </blockquote>
+                        <div class="card">
+                          <div class="card-header">
+                            <h3 class="card-title" id="preferredScheduleTitle">Preferred Schedule</h3>
+                          </div>
+                          <div class="card-body">
+                            <blockquote class="blockquote">
+                              <span class="data-placeholder" data-placeholder="email"><strong><span id="prefSchedule">Not set</span></strong></span><br>
+                            </blockquote>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+              <!-- Room Panel -->
+              <div class="tab-pane" id="tabs-profile-6">
+                <div class="card-title" id="roomPanelTitle">Room Schedule</div>
+                <form action="./" method="get" autocomplete="off" novalidate>
+                  <div class="input-group mt-2">
+                    <!-- Dropdown for day selection -->
+                    <select id="dDropdown" class="form-select">
+                      <!-- Add options dynamically based on your day data -->
+                      <option value="" selected disabled>Select a Day</option>
+                      <option value="Monday">Monday</option>
+                      <option value="Tuesday">Tuesday</option>
+                      <option value="Wednesday">Wednesday</option>
+                      <option value="Thursday">Thursday</option>
+                      <option value="Friday">Friday</option>
+                      <option value="Saturday">Saturday</option>
+                      <option value="Sunday">Sunday</option>
+                      <!-- Add more options as needed -->
+                    </select>
+                  </div>
+                  <div class="input-group mt-2">
+                    <!-- Dropdown for class selection -->
+                    <select id="rmDropdown" class="form-select">
+                      <option value="" selected disabled>Select room</option>
+                      <!-- Add more options as needed -->
+                    </select>
+                  </div>
+                  <!-- Search button for room schedule -->
+                  <button id="searchRoomButton" class="btn btn-primary mt-2" type="button">Search</button>
+                </form>
+                <div class="card mt-3">
+                  <div class="card-body">
+                    <!-- Dynamic title showing day and room -->
+                    <h5 class="card-title" id="roomScheduleTitle">Day: Not set | Room: Not set</h5>
+                    <!-- Container or card-like structure for displaying multiple schedule cards -->
+                    <div id="roomScheduleContainer"></div>
+                    <!-- Example Schedule Card (You can duplicate this for multiple schedules) -->
+                      </div>
+                    </div>
+                    <!-- Add more schedule cards dynamically based on your data -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+</div>
+<!-- Libs JS -->
+<script src="./dist/libs/apexcharts/dist/apexcharts.min.js?1692870487" defer></script>
+<script src="./dist/libs/jsvectormap/dist/js/jsvectormap.min.js?1692870487" defer></script>
+<script src="./dist/libs/jsvectormap/dist/maps/world.js?1692870487" defer></script>
+<script src="./dist/libs/jsvectormap/dist/maps/world-merc.js?1692870487" defer></script>
+<!-- Tabler Core -->
+<script src="./dist/js/tabler.min.js?1692870487" defer></script>
+<script src="./dist/js/demo.min.js?1692870487" defer></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/common.js' %}" defer></script>
+<script>
+  // Function to retrieve token from localStorage
+  function getToken() {
+      return localStorage.getItem('accessToken');
+  }
+
+  // Function to check if the token is available
+  function isTokenAvailable() {
+      const token = getToken();
+      return token !== null && token !== undefined && token !== '';
+  }
+
+  // Function to redirect to login if token is not available
+  function redirectToLogin() {
+      console.log('Token not found. Redirecting to login.');
+      window.location.href = "/index";
+  }
+
+  // Check if token is available and redirect if not
+  if (!isTokenAvailable()) {
+      redirectToLogin();
+  }
+  
+  // Function to populate Academic Year Dropdown
+  function populateAcademicYearDropdown() {
+      $.ajax({
+          url: baseUrl+"/academicyears/getacadyr",
+          type: 'GET',
+          headers: {
+              'Authorization': `Bearer ${getToken()}`
+          },
+          success: function (response) {
+              if (response.data && response.data.length > 0) {
+                  response.data.forEach(function (academicYear) {
+                      $('#academicyearDropdown').append(`<option value="${academicYear.id}" data-id="${academicYear.id}">${academicYear.name}</option>`);
+                  });
+              } else {
+                  console.log('No academic years found.');
+              }
+          },
+          error: function (xhr, status, error) {
+              console.log('Error fetching academic years:', xhr.responseText);
+          }
+      });
+  }
+  // Function to populate Curriculum Year Dropdown
+  function populateCurriculumYearDropdown() {
+    $.ajax({
+        url: baseUrl+"/managecurriculums/getcurnames",
+        type: 'GET',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`
+        },
+        success: function (response) {
+            if (response.data && response.data.length > 0) {
+                response.data.forEach(function (curriculumYear) {
+                    $('#curriculumDropdown').append(`<option value="${curriculumYear.id}" data-id="${curriculumYear.id}">${curriculumYear.name}</option>`);
+                });
+            } else {
+                console.log('No curriculum years found.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log('Error fetching curriculum years:', xhr.responseText);
+        }
+    });
+}
+// Function to fetch faculties and populate dropdown
+function fetchFaculties() {
+  $.ajax({
+    url: baseUrl+"/faculties/getfaculties",
+    type: "GET",
+    headers: {
+      'Authorization': `Bearer ${getToken()}`
+    },
+    success: function(response) {
+      // Populate the dropdown with faculty names and IDs
+      if (response.data && response.data.length > 0) {
+        response.data.forEach(function (faculty) {
+          $('#facultyDropdown').append(`<option value="${faculty.id}" data-id="${faculty.id}">${faculty.name}</option>`);
+        });
+
+        // Initialize Select2 for the faculty dropdown
+        $('#facultyDropdown').select2({
+          width: '100%',
+          placeholder: 'Select Faculty',
+          allowClear: true
+        });
+      } else {
+        console.log('No courses found.');
+      }
+    },
+    error: function (xhr, status, error) {
+      console.log('Error fetching courses:', xhr.responseText);
+    }
+  });
+}
+// Function to fetch faculty details based on selected option
+function searchFaculty() {
+  const facultyId = $("#facultyDropdown").val();
+
+  $.ajax({
+    url: baseUrl+`/faculties/${facultyId}`,
+    type: "GET",
+    headers: {
+      'Authorization': `Bearer ${getToken()}`
+    },
+    success: function(response) {
+      // Update the UI with faculty details
+      $("#facultyName").text(response.data.name);
+      $("#statusValue").text(response.data.status);
+      $("#unitsAllowedValue").text(response.data.allowed_units);
+      $("#prefSchedule").text(response.data.preferred_schedule);
+      // Add more lines to update other details as needed
+    },
+    error: function(xhr, status, error) {
+      console.error("Error fetching faculty details:", xhr.responseText);
+    }
+  });
+}
+// Assign the searchFaculty function to the button click event
+$("#searchFacultyButton").on("click", function() {
+  searchFaculty();
+});
+// Function to populate Program Dropdown
+function populateProgramDropdown() {
+    $.ajax({
+        url: baseUrl+"/courses/getcourse",
+        type: 'GET',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`
+        },
+        success: function (response) {
+            if (response.data && response.data.length > 0) {
+                response.data.forEach(function (course) {
+                    $('#programDropdown').append(`<option value="${course.id}" data-id="${course.id}">${course.name}</option>`);
+                });
+            } else {
+                console.log('No courses found.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log('Error fetching courses:', xhr.responseText);
+        }
+    });
+}
+
+// Function to populate Year Level Dropdown
+function populateYearLevelDropdown() {
+    $.ajax({
+        url: baseUrl+"/yearlevels/getyearlevels",
+        type: 'GET',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`
+        },
+        success: function (response) {
+            if (response.data && response.data.length > 0) {
+                response.data.forEach(function (yearLevel) {
+                    $('#yearlevelDropdown').append(`<option value="${yearLevel.id}" data-id="${yearLevel.id}">${yearLevel.name}</option>`);
+                });
+            } else {
+                console.log('No year levels found.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log('Error fetching year levels:', xhr.responseText);
+        }
+    });
+}
+
+// Function to populate Semester Dropdown
+function populateSemesterDropdown() {
+    $.ajax({
+        url: baseUrl+"/semesters/getsemester",
+        type: 'GET',
+        headers: {
+            'Authorization': `Bearer ${getToken()}`
+        },
+        success: function (response) {
+            if (response.data && response.data.length > 0) {
+                response.data.forEach(function (semester) {
+                    $('#semesterDropdown').append(`<option value="${semester.id}" data-id="${semester.id}">${semester.name}</option>`);
+                });
+            } else {
+                console.log('No semesters found.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log('Error fetching semesters:', xhr.responseText);
+        }
+    });
+}
+
+function formatTime(time) {
+  // Parse the input time string
+  const inputTime = new Date(`2000-01-01 ${time}`);
+
+  // Format the time in 12-hour format with a space after the minute
+  const formattedTime = inputTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+
+  // Ensure 'am' or 'pm' is in lowercase and add a space after the minute
+  return formattedTime.toLowerCase().replace(/\s/g, '').replace(/(\d{1,2}:\d{2})([a|p]m)/, '$1 $2');
+}
+// Event listener for the 'Validate' button
+$(document).on('click', '#validator-btn', function () {
+  // Get the corresponding row data for the clicked button
+  const row = $(this).closest('tr');
+  const acadyear_id = $('#academicyearDropdown option:selected').data('id');
+  const course_id = $('#programDropdown option:selected').data('id');
+  const semester_id = $('#semesterDropdown option:selected').data('id');
+  const class_id = $('#classDropdown option:selected').data('id');
+  const subject_code = row.find('td:nth-child(1)').text();
+  const subject_name = row.find('td:nth-child(2)').text();
+  const lecture_hours = row.find('td:nth-child(3)').text();
+  const lab_hours = row.find('td:nth-child(4)').text();
+  const units = row.find('td:nth-child(5)').text();
+  const tuition_hours = row.find('td:nth-child(6)').text();
+  const day = row.find('td:nth-child(7) select').val();
+  const start_time = formatTime(row.find('td:nth-child(8) input').val());
+  const end_time = formatTime(row.find('td:nth-child(9) input').val());
+  const room_id = row.find('td:nth-child(10) select').val();
+
+  // Make a request to the validation endpoint
+  $.ajax({
+    url: baseUrl+"/manageschedules/validate-schedule",
+    type: 'POST',
+    headers: {
+      'Authorization': `Bearer ${getToken()}`
+    },
+    contentType: 'application/json',
+    data: JSON.stringify({
+      acadyear_id,
+      course_id,
+      semester_id,
+      class_id,
+      subject_code,
+      subject_name,
+      lecture_hours,
+      lab_hours,
+      units,
+      tuition_hours,
+      day,
+      start_time,
+      end_time,
+      room_id
+    }),
+    success: function (response) {
+      console.log('Validation Success:', response);
+      // Handle success (e.g., update UI, show message)
+      alert('Schedule is validated.');
+    },
+    error: function (xhr, status, error) {
+      console.log('Validation Error:', xhr.responseText);
+      // Handle error (e.g., update UI, show message)
+      alert('Conflicting schedule found.');
+    }
+  }).fail(function (jqXHR, textStatus, errorThrown) {
+    console.log('Validation AJAX Failed:', textStatus, errorThrown);
+  });
+});
+// Function to get schedule data from the table without conflict checks
+function getTableData() {
+  const rows = [];
+
+  // Iterate through each row in the table
+  $('tbody tr').each(function () {
+      const row = {
+          acadyear_id: $('#academicyearDropdown option:selected').data('id'),
+          course_id: $('#programDropdown option:selected').data('id'),
+          semester_id: $('#semesterDropdown option:selected').data('id'),
+          class_id: $('#classDropdown option:selected').data('id'),
+          subject_code: $(this).find('td:nth-child(1)').text(),
+          subject_name: $(this).find('td:nth-child(2)').text(),
+          lecture_hours: $(this).find('td:nth-child(3)').text(),
+          lab_hours: $(this).find('td:nth-child(4)').text(),
+          units: $(this).find('td:nth-child(5)').text(),
+          tuition_hours: $(this).find('td:nth-child(6)').text(),
+          day: $(this).find('td:nth-child(7) select').val(),
+          start_time: formatTime($(this).find('td:nth-child(8) input').val()),
+          end_time: formatTime($(this).find('td:nth-child(9) input').val()),
+          room_id: $(this).find('td:nth-child(10) select').val(),
+      };
+
+      if (row.start_time !== null && row.end_time !== null) {
+          rows.push(row);
+      }
+  });
+
+  return rows;
+}
+
+// Function to send bulk insert data
+function sendBulkInsertData(data) {
+  $.ajax({
+      url: baseUrl+"/manageschedules/bulk-post",
+      type: 'POST',
+      headers: {
+          'Authorization': `Bearer ${getToken()}`
+      },
+      contentType: 'application/json',
+      data: JSON.stringify({ schedules: data }),  // Wrap the data array in an object
+      success: function (response) {
+          console.log('Bulk Insert Success:', response);
+          // Show success message
+          alert('Schedule successfully added without conflicts!');
+          // Optionally clear the table or any other actions
+      },
+      error: function (xhr, status, error) {
+          console.log('Bulk Insert Error:', xhr.responseText);
+          // Show error message
+          alert('An error occured, Conflicting schedule found');
+      }
+  }).fail(function (jqXHR, textStatus, errorThrown) {
+      console.log('Bulk Insert AJAX Failed:', textStatus, errorThrown);
+  });
+}
+
+// Event listener for the 'Submit' button
+$('#submit-btn').on('click', function () {
+  // Get table data without conflict checks
+  const tableData = getTableData();
+
+  // Check if there is data to submit
+  if (tableData.length > 0) {
+      // Make a request to perform bulk insert
+      sendBulkInsertData(tableData);
+  } else {
+      console.log('No data to submit or conflicting schedules.');
+  }
+});
+
+
+// Function to populate Class Dropdown
+function populateClassDropdown() {
+  $.ajax({
+      url: baseUrl+"/classes/getclass",
+      type: 'GET',
+      headers: {
+          'Authorization': `Bearer ${getToken()}`
+      },
+      success: function (response) {
+          if (response.data && response.data.length > 0) {
+              response.data.forEach(function (classData) {
+                  $('#classDropdown').append(`<option value="${classData.id}" data-id="${classData.id}">${classData.classname}</option>`);
+              });
+
+              // Initialize Select2 for the class dropdown
+              $('#classDropdown').select2({
+                  width: '100%',
+                  placeholder: 'Select Class',
+                  allowClear: true
+              });
+          } else {
+              console.log('No classes found.');
+          }
+      },
+      error: function (xhr, status, error) {
+          console.log('Error fetching classes:', xhr.responseText);
+      }
+  });
+}
+
+function populateRoomDropdownOutsideTable() {
+  $.ajax({
+    url: baseUrl+"/rooms/getrooms",
+    type: 'GET',
+    headers: {
+      'Authorization': `Bearer ${getToken()}`
+    },
+    success: function (response) {
+      if (response.data && response.data.length > 0) {
+        response.data.forEach(function (roomData) {
+          $('#rmDropdown').append(`<option value="${roomData.id}" data-id="${roomData.id}">${roomData.room_number}</option>`);
+        });
+
+        // Initialize Select2 on the dropdown
+        $('#rmDropdown').select2({
+          width: '100%', // Adjust the width as needed
+          placeholder: 'Select Room',
+          allowClear: true // Allow clearing the selection
+        });
+      } else {
+        console.log('No rooms found.');
+      }
+    },
+    error: function (xhr, status, error) {
+      console.log('Error fetching rooms:', xhr.responseText);
+    }
+  });
+}
+
+// Call the function to populate the rmDropdown outside the table
+populateRoomDropdownOutsideTable();
+
+// Search button click event handler
+$('#searchRoomButton').on('click', function () {
+  // Get selected values from dropdowns
+  const selectedDay = $('#dDropdown option:selected').text();
+  const selectedRoomId = $('#rmDropdown option:selected').data('id');
+  const selectedAcadyearId = $('#academicyearDropdown option:selected').data('id');
+  const selectedSemesterId = $('#semesterDropdown option:selected').data('id');
+
+  // Make a request to get room schedule data
+  $.ajax({
+      url: baseUrl+"/manageschedules/findroomscheds",
+      type: 'GET',
+      data: {
+          acadyear_id: selectedAcadyearId,
+          semester_id: selectedSemesterId,
+          day: selectedDay,
+          room_id: selectedRoomId
+      },
+      headers: {
+          'Authorization': `Bearer ${getToken()}`
+      },
+      success: function (response) {
+          console.log('Server response:', response); // Debug print
+
+          // Clear existing schedule cards
+          $('#roomScheduleContainer').empty();
+
+          // Update the dynamic title with selected day and room
+          $('#roomScheduleTitle').text(`Day: ${selectedDay} | Room: ${$('#rmDropdown option:selected').text()}`);
+
+          // Populate schedule cards based on the response data
+          if (response && response.length > 0) {
+              response.forEach(function (schedule) {
+                  console.log('Schedule:', schedule); // Debug print
+
+                  // Check if 'classes' property exists in the schedule
+                  const className = schedule.classes ? schedule.classes.classname : 'No Class';
+
+                  // Create a new schedule card
+                  const formattedStartTime = formatTime(schedule.start_time);
+                  const formattedEndTime = formatTime(schedule.end_time);
+
+                  // Make a separate request to get class details based on class_id
+                  $.ajax({
+                      type: "GET",
+                      url: baseUrl+`/classes/${schedule.class_id}`, // Adjust the endpoint accordingly
+                      headers: {
+                          'Authorization': `Bearer ${getToken()}`
+                      },
+                      success: function (classData) {
+                          if (classData.data) {
+                              // Use class name if available, otherwise show 'N/A'
+                              const classNameFromDetails = classData.data.classname || 'N/A';
+
+                              // Append the schedule card to the container
+                              const scheduleCard = `
+                                  <div class="card mt-2">
+                                      <div class="card-body">
+                                          <p class="mb-0"><strong>Class:</strong> ${classNameFromDetails}</p>
+                                          <p class="mb-0"><strong>Schedule:</strong> ${formattedStartTime} - ${formattedEndTime}</p>
+                                      </div>
+                                  </div>
+                              `;
+
+                              // Append the schedule card to the container
+                              $('#roomScheduleContainer').append(scheduleCard);
+                          } else {
+                              console.error("Class data not available:", classData);
+                          }
+                      },
+                      error: function (error) {
+                          console.error("Error fetching class details:", error);
+                      }
+                  });
+              });
+          } else {
+              // If no data is found, display a message or handle as needed
+              console.log('No room schedule data found.');
+          }
+      },
+      error: function (xhr, status, error) {
+          console.log('Error fetching room schedule data:', xhr.responseText);
+      }
+  });
+});
+
+
+// Function to format time (e.g., convert 07:00:00 to 7:00 AM)
+function formatTime(time) {
+  const formattedTime = new Date(`1970-01-01T${time}`);
+  return formattedTime.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+}
+
+// Function to handle filter button click
+$('#filter-btn').on('click', function () {
+  // Get selected values and names from dropdowns
+  const curriculumYear = $('#curriculumDropdown option:selected').text();
+  const curriculumYearId = $('#curriculumDropdown option:selected').data('id');
+  const programCode = $('#programDropdown option:selected').text();
+  const programCodeId = $('#programDropdown option:selected').data('id');
+  const yearLevel = $('#yearlevelDropdown option:selected').text();
+  const yearLevelId = $('#yearlevelDropdown option:selected').data('id');
+  const semester = $('#semesterDropdown option:selected').text();
+  const semesterId = $('#semesterDropdown option:selected').data('id');
+
+  // Make a request to get filtered curriculum data
+  $.ajax({
+    url: baseUrl+"/curriculums/filtercuri",
+    type: 'GET',
+    data: {
+      curriculum_year_name: curriculumYearId,
+      course_id: programCodeId,
+      year_level_id: yearLevelId,
+      semester_id: semesterId
+    },
+    headers: {
+      'Authorization': `Bearer ${getToken()}`
+    },
+    success: function (response) {
+      // Populate the table with the filtered data
+      populateCurriculumTable(response);
+            // Update the room dropdown with the new data
+            populateRoomDropdown(response);
+    },
+    error: function (xhr, status, error) {
+      console.log('Error fetching filtered curriculum data:', xhr.responseText);
+      alert('Please select for all dropdowns first');
+    }
+  });
+});
+
+// Function to populate Curriculum Table
+function populateCurriculumTable(data) {
+  const tableBody = $('#scheduleTableBody');
+  tableBody.empty();
+
+  data.forEach(function (curriculum) {
+    // Check if lab_hours is greater than zero
+    if (curriculum.lab_hours > 0) {
+      // Duplicate the row with the same lab_hours value
+      const labHoursRow = $.extend(true, {}, curriculum);
+      labHoursRow.lab_hours = curriculum.lab_hours;
+
+      // Make a request to get room data for each curriculum row
+      $.ajax({
+        url: baseUrl+"/rooms/getrooms",
+        type: 'GET',
+        data: {
+          // Include any additional filtering criteria for rooms
+          // For example: room_id: curriculum.room_id
+        },
+        headers: {
+          'Authorization': `Bearer ${getToken()}`
+        },
+        success: function (roomResponse) {
+          // Populate the table row with curriculum data and room dropdown
+          tableBody.append(`
+            <tr>
+              <td>${curriculum.subject_code}</td>
+              <td>${curriculum.subject_name}</td>
+              <td>${curriculum.lecture_hours}</td>
+              <td>${curriculum.lab_hours}</td>
+              <td>${curriculum.units}</td>
+              <td>${curriculum.tuition_hours}</td>
+              <td>
+                <select class="form-select" style="font-size: small; width: 150px;">
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </td>
+              <td>
+                <input type="time" class="form-select" name="schedule" style="font-size: small;">
+              </td>
+              <td>
+                <input type="time" class="form-select" name="schedule" style="font-size: small;">
+              </td>
+              <td>
+                <select type="text" class="form-select select2-room" style="width: 150px;" data-placeholder="Select Room">
+                  <option value=""></option>
+                  ${generateRoomOptions(roomResponse.data)}
+                </select>
+              </td>
+              <td>
+                <button class="btn btn-secondary" id="validator-btn">Validate</button>
+              </td>
+            </tr>
+          `);
+
+          // Add a new row for lab hours
+          tableBody.append(`
+            <tr>
+              <td>${labHoursRow.subject_code}</td>
+              <td>${labHoursRow.subject_name}</td>
+              <td>${labHoursRow.lecture_hours}</td>
+              <td>${labHoursRow.lab_hours}</td>
+              <td>${labHoursRow.units}</td>
+              <td>${labHoursRow.tuition_hours}</td>
+              <td>
+                <select class="form-select" style="font-size: small; width: 150px;">
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </td>
+              <td>
+                <input type="time" class="form-select" name="schedule" style="font-size: small;">
+              </td>
+              <td>
+                <input type="time" class="form-select" name="schedule" style="font-size: small;">
+              </td>
+              <td>
+                <select type="text" class="form-select select2-room" style="width: 150px;" data-placeholder="Select Room">
+                  <option value=""></option>
+                  ${generateRoomOptions(roomResponse.data)}
+                </select>
+              </td>
+              <td>
+                <button class="btn btn-secondary" id="validator-btn">Validate</button>
+              </td>
+            </tr>
+          `);
+
+          // Initialize Select2 for the room dropdowns
+          $('.select2-room').select2({
+            width: '100%',
+            allowClear: true
+          });
+        },
+        error: function (xhr, status, error) {
+          console.log('Error fetching room data:', xhr.responseText);
+        }
+      });
+    } else {
+      // Make a request to get room data for each curriculum row
+      $.ajax({
+        url: baseUrl+"/rooms/getrooms",
+        type: 'GET',
+        data: {
+          // Include any additional filtering criteria for rooms
+          // For example: room_id: curriculum.room_id
+        },
+        headers: {
+          'Authorization': `Bearer ${getToken()}`
+        },
+        success: function (roomResponse) {
+          // Populate the table row with curriculum data and room dropdown
+          tableBody.append(`
+            <tr>
+              <td>${curriculum.subject_code}</td>
+              <td>${curriculum.subject_name}</td>
+              <td>${curriculum.lecture_hours}</td>
+              <td>${curriculum.lab_hours}</td>
+              <td>${curriculum.units}</td>
+              <td>${curriculum.tuition_hours}</td>
+              <td>
+                <select class="form-select" style="font-size: small; width: 150px;">
+                  <option value="Monday">Monday</option>
+                  <option value="Tuesday">Tuesday</option>
+                  <option value="Wednesday">Wednesday</option>
+                  <option value="Thursday">Thursday</option>
+                  <option value="Friday">Friday</option>
+                  <option value="Saturday">Saturday</option>
+                  <option value="Sunday">Sunday</option>
+                </select>
+              </td>
+              <td>
+                <input type="time" class="form-select" name="schedule" style="font-size: small;">
+              </td>
+              <td>
+                <input type="time" class="form-select" name="schedule" style="font-size: small;">
+              </td>
+              <td>
+                <select type="text" class="form-select select2-room" style="width: 150px;" data-placeholder="Select Room">
+                  <option value=""></option>
+                  ${generateRoomOptions(roomResponse.data)}
+                </select>
+              </td>
+              <td>
+                <button class="btn btn-secondary" id="validator-btn">Validate</button>
+              </td>
+            </tr>
+          `);
+          // Initialize Select2 for the room dropdowns
+          $('.select2-room').select2({
+            width: '100%',
+            allowClear: true
+          });
+        },
+        error: function (xhr, status, error) {
+          console.log('Error fetching room data:', xhr.responseText);
+        }
+      });
+    }
+  });
+}
+
+// Function to generate room dropdown options
+function generateRoomOptions(roomData) {
+  let options = '';
+  roomData.forEach(function (room) {
+    options += `<option value="${room.id}" data-id="${room.id}">${room.room_number}</option>`;
+  });
+  return options;
+}
+
+
+// Call the functions to populate the respective dropdowns
+populateCurriculumYearDropdown();
+populateAcademicYearDropdown();
+populateProgramDropdown();
+populateYearLevelDropdown();
+populateSemesterDropdown();
+populateClassDropdown();
+fetchFaculties();
+populateRoomDropdown();
+
+
+</script>
+
+
+</body>
+</html>

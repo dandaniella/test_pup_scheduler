@@ -1,0 +1,46 @@
+{% load static %}
+
+<link href="{% static 'css/tabler.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/demo.min.css' %}" rel="stylesheet"/>
+
+<body>
+{% include "staffnavbar.html" %}
+
+<div class="page-wrapper">
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <!-- Page pre-title -->
+            <div class="page-pretitle">
+              Overview
+            </div>
+            <h2 class="page-title" style="margin-bottom: 20px;">
+              View Schedule
+            </h2>
+          </div>
+          <!-- Page title actions -->
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <a href="{% url 'staffviewclass' %}" class="card card-sponsor" target="_blank" rel="" style="background-image: url('{% static 'img/viewclass.svg' %}')" aria-label="Sponsor Tabler!">
+        <div class="card-body"></div>
+      </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <a href="{% url 'view_faculty' %}" class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url('{% static 'img/viewfaculty.svg' %}')">
+        <div class="card-body"></div>
+      </a>
+    </div>    
+    <div class="col-md-6 col-lg-4">
+      <a href="{% url 'view_room' %}" class="card card-sponsor" target="_blank" rel="noopener" style="background-image: url('{% static 'img/viewroom.svg' %}')" aria-label="Sponsor Tabler!">
+        <div class="card-body"></div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

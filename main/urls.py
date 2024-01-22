@@ -1,0 +1,51 @@
+from django.contrib import admin
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index), 
+    path('index/', views.index, name='index'), 
+    path('adminhome/', views.adminhome, name='adminhome'),
+    path('adminnavbar/', views.adminnavbar, name='adminnavbar'), 
+    path('forgot_password/', views.forgot_password, name='forgot_password'), 
+    path('adduser/', views.adduser, name='adduser'),
+    path('staffnavbar/', views.staffnavbar, name='staffnavbar'),
+    path('staffhome/', views.staffhome, name='staffhome'),
+    path('staffaddcurriculum/', views.staffaddcurriculum, name='staffaddcurriculum'),
+    path('staffcurriculumview/', views.staffcurriculumview, name='staffcurriculumview'),
+    path('staffviewclass/', views.staffviewclass, name='staffviewclass'),
+    path('staffviewschedule/', views.staffviewschedule, name='staffviewschedule'),
+    path('curriculum_view/', views.curriculum_view, name='curriculum_view'),
+    path('admincurriculumview/', views.admincurriculumview, name='admincurriculumview'),
+    path('adminfacultyinformation/', views.adminfacultyinformation, name='adminfacultyinformation'),
+    path('adminsystemconfig/', views.adminsystemconfig, name='adminsystemconfig'),
+    path('adminaddcurriculum/', views.adminaddcurriculum, name='adminaddcurriculum'),
+    path('adminviewclass/', views.adminviewclass, name='adminviewclass'),
+    path('adminfacultyloading/', views.adminfacultyloading, name='adminfacultyloading'),
+    path('adminmanageschedule/', views.adminmanageschedule, name='adminmanageschedule'),
+    path('adminviewschedule/', views.adminviewschedule, name='adminviewschedule'),
+    path('navbar/', views.navbar, name='navbar'), 
+    path('home/', views.home, name='home'),
+    path('faculty_loading/', views.faculty_loading, name='faculty_loading'), 
+    path('view_schedule/', views.view_schedule, name='view_schedule'),
+    path('manage_schedule/', views.manage_schedule, name='manage_schedule'),
+    path('manage_curriculumyear/', views.manage_curriculumyear, name='manage_curriculumyear'), 
+    path('curriculum_addcurriculum/', views.curriculum_addcurriculum, name='curriculum_addcurriculum'),
+    path('system_configuration/', views.system_configuration, name='system_configuration'),
+    path('faculty_information/', views.faculty_information, name='faculty_information'), 
+    path('view_class/', views.view_class, name='view_class'), 
+    path('view_faculty/', views.view_faculty, name='view_faculty'), 
+    path('view_room/', views.view_room, name='view_room'), 
+    path('manage_academicyear/', views.manage_academicyear, name='manage_academicyear'), 
+    path('manage_semester/', views.manage_semester, name='manage_semester'), 
+    path('manage_course/', views.manage_course, name='manage_course'),
+    path('curriculum_program/', views.curriculum_program, name='curriculum_program'), 
+    path('manage_yearlevel/', views.manage_yearlevel, name='manage_yearlevel'), 
+    path('manage_section/', views.manage_section, name='manage_section'), 
+    path('manage_class/', views.manage_class, name='manage_class'), 
+    path('manage_facultyloading/', views.manage_facultyloading, name='manage_facultyloading'), 
+    path('manage_facility/', views.manage_facility, name='manage_facility'), 
+
+
+
+]

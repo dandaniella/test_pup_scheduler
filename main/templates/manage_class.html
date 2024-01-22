@@ -1,0 +1,417 @@
+{% load static %}
+
+<link href="{% static 'css/tabler.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/demo.min.css' %}" rel="stylesheet"/>
+
+<body>
+{% include "navbar.html" %}
+
+<div class="page-wrapper">
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <!-- Page pre-title -->
+                </div>
+
+                <div class="page-header">
+                    <div class="row align-items-center mw-100">
+                        <div class="col">
+                            <div class="mb-1">
+                                <ol class="breadcrumb" aria-label="breadcrumbs">
+                                    <li class="breadcrumb-item"><a href="../academic-configurator.html">System Configurations</a></li>
+                                    <li class="breadcrumb-item"><a href="../academic-configurator.html">Manage Sections</a></li>
+                                </ol>
+                            </div>
+                            <h2 class="page-title">
+                                <span class="text-truncate">Class</span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="card">
+                <div class="card-body d-flex justify-content-end">
+                    <div class="btn-list">
+                        <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                            Create Class
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-vcenter table-mobile-md card-table">
+                                <thead>
+                                    <tr>
+                                        <th>Class Code</th>
+                                        <th>Program</th>
+                                        <th>Year Level</th>
+                                        <th>Section</th>
+                                        <th class="w-1">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id = "classTableBody"> <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+      <button id="previousButton" class="btn btn-primary">Previous</button>
+      <button id="nextButton" class="btn btn-primary">Next</button>
+  </div>
+
+    <!-- Modal Sample -->
+    <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Class</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label class="form-label">Class Code</label>
+                            <input type="text" class="form-control" id="class-code" placeholder="Enter Class Code">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Program</label>
+                                <select type="text" class="form-select" id="select-program">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Year Level</label>
+                                <select type="text" class="form-select" id="select-year-level">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Section</label>
+                                <select type="text" class="form-select" id="select-section">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                            Cancel
+                        </a>
+                        <a href="#" class="btn btn-primary" id="saveClassBtn" data-bs-dismiss="modal">
+                          Save
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+    <!-- Tabler Core -->
+    <script src="./dist/js/tabler.min.js?1692870487" defer></script>
+    <script src="./dist/js/demo.min.js?1692870487" defer></script>
+    <!-- Scripts Links -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/libs/apexcharts/dist/apexcharts.min.js" defer></script>
+    <!-- Additional Scripts-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/common.js' %}" defer></script>
+    <script>
+      // Function to get the access token from localStorage
+      function getToken() {
+        return localStorage.getItem('accessToken');
+      }
+    
+      // Function to populate the program dropdown
+      function populateProgramDropdown(token) {
+        $.ajax({
+          url: baseUrl+'/courses/getcourse',
+          type: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          success: function (data) {
+            if (data.data.length > 0) {
+              const dropdown = $('#select-program');
+              dropdown.empty();
+              data.data.forEach(function (item) {
+                dropdown.append(`<option value="${item.id}">${item.name}</option>`);
+              });
+            }
+          },
+          error: function (xhr, status, error) {
+            console.log('Error fetching programs:', xhr.responseText);
+          }
+        });
+      }
+    
+      // Function to populate the year level dropdown
+      function populateYearLevelDropdown(token) {
+        $.ajax({
+          url: baseUrl+'/yearlevels/getyearlevels',
+          type: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          success: function (data) {
+            if (data.data.length > 0) {
+              const dropdown = $('#select-year-level');
+              dropdown.empty();
+              data.data.forEach(function (item) {
+                dropdown.append(`<option value="${item.id}">${item.name}</option>`);
+              });
+            }
+          },
+          error: function (xhr, status, error) {
+            console.log('Error fetching year levels:', xhr.responseText);
+          }
+        });
+      }
+    
+      // Function to populate the section dropdown
+      function populateSectionDropdown(token) {
+        $.ajax({
+          url: baseUrl+'/sections/getsection',
+          type: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          success: function (data) {
+            if (data.data.length > 0) {
+              const dropdown = $('#select-section');
+              dropdown.empty();
+              data.data.forEach(function (item) {
+                dropdown.append(`<option value="${item.id}">${item.name}</option>`);
+              });
+            }
+          },
+          error: function (xhr, status, error) {
+            console.log('Error fetching sections:', xhr.responseText);
+          }
+        });
+      }
+    
+      // Document ready function
+      $(document).ready(function () {
+        const token = getToken();
+        let currentPage = 1;
+    
+        // Populate dropdowns on page load
+        populateProgramDropdown(token);
+        populateYearLevelDropdown(token);
+        populateSectionDropdown(token);
+    
+        // Function to display class data in the table
+        function displayClassTable(data) {
+          $('#classTableBody').empty();
+          if (data && data.length > 0) {
+            data.forEach(function (classItem) {
+              $('#classTableBody').append(
+                `<tr>
+                  <td data-label="Class Code">${classItem.classname}</td>
+                  <td data-label="Program">${classItem.course_name}</td>
+                  <td data-label="Year Level">${classItem.year_level_name}</td>
+                  <td data-label="Section">${classItem.section_name}</td>
+                  <td>
+                    <div class="btn-list flex-nowrap">
+                      <a href="#" class="btn btn-custom-yellow btn-edit" data-class-id="${classItem.id}" data-class-name="${classItem.classname}" data-year-level-id="${classItem.year_level_id}" data-course-id="${classItem.course_id}" data-section-id="${classItem.section_id}">Edit</a>
+                      <a href="#" class="btn btn-danger btn-delete" data-class-id="${classItem.id}">Delete</a>
+                    </div>
+                  </td>
+                </tr>`
+              );
+            });
+          } else {
+            console.log('No data to display.');
+          }
+        }
+    
+        // Function to refresh the class table
+        function refreshClassTable() {
+          $.ajax({
+            url: baseUrl+`/classes/get?page=${currentPage}`,
+            type: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            success: function (data) {
+              if (data.data.length === 0) {
+                console.log('No more data to display.');
+                currentPage--;
+                return;
+              }
+              data.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+              displayClassTable(data.data);
+              $('#nextButton').prop('disabled', data.data.length === 0);
+              $('#previousButton').prop('disabled', currentPage === 1);
+            },
+            error: function (xhr, status, error) {
+              console.log('Error:', xhr.responseText);
+            }
+          });
+        }
+    
+        // Event listener for "Next" button click
+        $('#nextButton').on('click', function (e) {
+          e.preventDefault();
+          currentPage++;
+          refreshClassTable();
+        });
+    
+        // Event listener for "Previous" button click
+        $('#previousButton').on('click', function (e) {
+          e.preventDefault();
+          currentPage--;
+          refreshClassTable();
+        });
+    
+        // Function to save or update class data
+    function saveClassData() {
+      const classId = $('#saveClassBtn').attr('data-class-id');
+      const classCode = $('#class-code').val();
+      const programId = $('#select-program').val();
+      const yearLevelId = $('#select-year-level').val();
+      const sectionId = $('#select-section').val();
+
+      const classData = {
+        classname: classCode,
+        course_id: programId,
+        year_level_id: yearLevelId,
+        section_id: sectionId,
+      };
+
+      let apiUrl, requestType;
+      if (classId) {
+        apiUrl = baseUrl+`/classes/${classId}`;
+        requestType = 'PUT';
+      } else {
+        apiUrl = baseUrl+'/classes/post';
+        requestType = 'POST';
+      }
+
+      $.ajax({
+        url: apiUrl,
+        type: requestType,
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        contentType: 'application/json',
+        data: JSON.stringify(classData),
+        success: function (response) {
+          console.log('Class operation successful:', response);
+          refreshClassTable();
+          $('#modal-report').modal('hide');
+          // Reset the form fields if needed
+          $('#class-code').val('');
+          $('#select-program').val('');
+          $('#select-year-level').val('');
+          $('#select-section').val('');
+        },
+        error: function (xhr, status, error) {
+          console.log('Error with Class operation:', xhr.responseText);
+        }
+      });
+    }
+
+        // Event listener for "Save" button click in the modal
+        $('#saveClassBtn').on('click', function (e) {
+          e.preventDefault();
+          saveClassData();
+        });
+    
+        // Event listener for modal hidden event
+        $('#modal-report').on('hidden.bs.modal', function () {
+          // Reset the modal title and button text for adding a new class
+          $('#modal-report .modal-title').text('Add Class');
+          $('#saveClassBtn').text('Save Class').removeAttr('data-class-id');
+    
+          // Reset the form fields if needed
+          $('#class-code').val('');
+          $('#select-program').val('');
+          $('#select-year-level').val('');
+          $('#select-section').val('');
+        });
+
+    // Event listener for "Delete" button click in the table
+    $('#classTableBody').on('click', '.btn-delete', function (e) {
+      e.preventDefault();
+      const classId = $(this).data('class-id');
+      const isConfirmed = confirm('Are you sure you want to delete this class?');
+      if (isConfirmed) {
+        $.ajax({
+          url: baseUrl+`/classes/${classId}`,
+          type: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          success: function (response) {
+            console.log('Class deleted successfully:', response);
+            refreshClassTable();
+          },
+          error: function (xhr, status, error) {
+            console.log('Error deleting class:', xhr.responseText);
+          }
+        });
+      }
+    });
+
+    // Event listener for "Edit" button click in the table
+    $('#classTableBody').on('click', '.btn-edit', function (e) {
+      e.preventDefault();
+      // Retrieve class details from the button's data attributes
+      const classId = $(this).data('class-id');
+      const className = $(this).data('class-name');
+      const programId = $(this).data('course-id');
+      const yearLevelId = $(this).data('year-level-id');
+      const sectionId = $(this).data('section-id');
+
+      // Populate the "Add Class" modal with the class details
+      $('#class-code').val(className);
+      $('#select-program').val(programId);
+      $('#select-year-level').val(yearLevelId);
+      $('#select-section').val(sectionId);
+
+      // Set the modal title and button text for updating the class
+      $('#modal-report .modal-title').text('Update Class');
+      $('#saveClassBtn').text('Update Class').attr('data-class-id', classId);
+
+      // Show the "Add Class" modal
+      $('#modal-report').modal('show');
+    });
+
+    // Initial load of class table
+    refreshClassTable();
+  });
+</script>
+    
+
+  
+  
+</body>
+</html>

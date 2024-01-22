@@ -1,0 +1,82 @@
+{% load static %}
+
+<link href="{% static 'css/tabler.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-flags.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-payments.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/tabler-vendors.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/demo.min.css' %}" rel="stylesheet"/>
+
+<body>
+    {% include "adminnavbar.html" %}
+
+    <div class="page-wrapper">
+        <div class="page-body">
+            <div class="container-xl">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-vcenter table-mobile-md card-table">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Faculty Type</th>
+                                        <th>Units</th>
+                                        <th>Rank</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="facultyInfoTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        //always import the jquery para magamit natin ang ajax jquery, para ito sa mga gagamit ng api, pero pwede rin namang axios etc
+        $(document).ready(function() {
+            function displayFacultyInfoTable(data) {
+                $('#facultyInfoTableBody').empty();
+                if (data && data.Faculties && Object.keys(data.Faculties).length > 0) {
+                    // dito lahat ng data is iisa isahin ko per row and column
+                    Object.values(data.Faculties).forEach(function (faculty) {
+                        $('#facultyInfoTableBody').append(
+                            `<tr>
+                                <td>${faculty.FirstName}</td>
+                                <td>${faculty.LastName}</td>
+                                <td>${faculty.FacultyType}</td>
+                                <td>${faculty.Units}</td>
+                                <td>${faculty.Rank}</td>
+                                <td>${faculty.Remarks}</td>
+                            </tr>`
+                        );
+                    });
+                } else {
+                    console.log('No data to display.');
+                }
+                // yung faculty.faculty type, ayan yung mga gusto ko lang kunin na fields and data, para di lahat makuha ko
+            }
+
+            function refreshFacultyInfoTable() {
+                $.ajax({
+                    url: 'https://pupqcfis-com.onrender.com/api/all/FISFaculty',
+                    type: 'GET',
+                    success: function(data) {
+                        displayFacultyInfoTable(data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('Error:', xhr.responseText);
+                    }
+                });
+            }
+
+            refreshFacultyInfoTable();
+        });
+    </script>
+</body>
+</html>
